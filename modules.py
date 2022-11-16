@@ -1,4 +1,4 @@
- # Modified version:Vajira Thambawita
+ # Modified version of puls2puls to accomodate for Diffusion model
 
 import torch
 import torch.nn as nn
