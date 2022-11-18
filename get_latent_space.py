@@ -1,5 +1,7 @@
 import torch
 from tqdm.auto import tqdm
+import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
 def get_latent_space(dataloader=None,FE=None,model=None):
   """
   takes dataloader a trained feature extractor(7to7 leads) and a trained model(1to7 leads) and returns latent spaces for both
@@ -23,3 +25,27 @@ def get_latent_space(dataloader=None,FE=None,model=None):
   return Latent_spaces_real,Latent_spaces_predicted
 
 
+def TSNE_plot(dataset1,dataset2):
+  random_state=42
+  result1 = TSNE(n_components=2, learning_rate='auto',init='random',random_state=random_state, perplexity=100).fit_transform(Latent_spaces_real)
+  result2 = TSNE(n_components=2, learning_rate='auto',init='random',random_state=random_state, perplexity=100).fit_transform(Latent_spaces_real)
+  df1,df2=pd.DataFrame(result1),pd.DataFrame(result2)
+  df1.columns=["x","y"]
+  df2.columns=["x","y"]
+  plt.figure(figsize=(8,8))
+  fig, ax = plt.subplots()
+  ax.scatter(y=df1["x"],x=df1["y"],c="g",alpha=1,label="Real Data")
+  ax.scatter(y=df2["x"],x=df2["y"],c="b",alpha=0.2,label="Predicted Data")
+  ax.legend()
+
+def TSNE_plots(dataset_list):
+  random_state=42
+  plt.figure(figsize=(12,12))
+  fig, ax = plt.subplots()
+  for k,entry in enumerate(dataset_list):
+    print(f"running TSNE for entry {k}")
+    result = TSNE(n_components=2, learning_rate='auto',init='random',random_state=random_state, perplexity=100).fit_transform(entry)
+    df=pd.DataFrame(result,columns=[["x","y"]])
+    ax.scatter(y=df["x"],x=df["y"],alpha=0.2,label=f"set{k}")
+    ax.legend()
+TSNE_plots(dataset_list)
