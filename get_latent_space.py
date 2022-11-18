@@ -1,6 +1,7 @@
 import torch
 from tqdm.auto import tqdm
 import matplotlib.pyplot as plt
+import pandas as pd
 from sklearn.manifold import TSNE
 def get_latent_space(dataloader=None,FE=None,model=None):
   """
@@ -48,4 +49,3 @@ def TSNE_plots(dataset_list):
     df=pd.DataFrame(result,columns=[["x","y"]])
     ax.scatter(y=df["x"],x=df["y"],alpha=0.2,label=f"set{k}")
     ax.legend()
-TSNE_plots(dataset_list)
