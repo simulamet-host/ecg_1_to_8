@@ -33,7 +33,7 @@ class Custom_dataset_CSV():
         return len(self.files)
 
     def __getitem__(self,idx):
-      header=["I", "II", "aVL", "v1", "v2", "v3", "v4", "v5", "v6"]
+      header=["I", "II", "v1", "v2", "v3", "v4", "v5", "v6"]
       #turn list of dataframes into Tensor
       if self.split is True:
         if self.target is "train":

@@ -23,12 +23,12 @@ data_dir=file_path.joinpath("input_data","Syn")
 #get predictions
 output_path=file_path.joinpath("ecg_outputs")
 def generate_ecg(data_dir=str(data_dir)):
-    data=CD(data_dir,split=False)
+    dataset=CD(data_dir,split=False)
     print("data was generated")
-    input,output=predictions(dataset=data[0],model=init_model(),upscale=5011)
-    print("predictions were made")
-    ecg_df=ecg(input,output,path=str(output_path),scale=True)
-
+    for k,(i) in enumerate(dataset):
+        input,output=predictions(dataset=i,model=init_model(),upscale=5011)
+        print("predictions were made")
+        ecg_df=ecg(input,output,title=k,path=str(output_path),scale=True)
 generate_ecg()
 
 
