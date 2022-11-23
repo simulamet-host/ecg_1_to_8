@@ -18,7 +18,7 @@ def init_model(version=6):
     return model
 
 #import data
-data_dir=file_path.joinpath("input_data","Syn")
+data_dir=file_path.joinpath("input_data","files")
 
 #get predictions
 output_path=file_path.joinpath("ecg_outputs")
