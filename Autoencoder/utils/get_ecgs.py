@@ -1,6 +1,7 @@
 
 import pandas as pd
 from pathlib import Path
+import os
 def plotECG_12Lead(df1=None,df2=None,title=None,path=None,createECG=True,scale=None):
   """
   takes two dataframes with identical columns, concats them and plots them as ecg using ecg_plot
@@ -12,10 +13,11 @@ def plotECG_12Lead(df1=None,df2=None,title=None,path=None,createECG=True,scale=N
   if createECG==True:
     ecg_path=path
     if Path(ecg_path).is_dir():
-        print(f"{ecg_path} directory exists.")
+      None
     else:
         print(f"Did not find {ecg_path} directory, creating one...")
-        Path(ecg_path).mkdir(parents=True, exist_ok=False)
+        #Path(ecg_path).mkdir(parents=True, exist_ok=False)
+        os.mkdir(ecg_path)
   if scale:
     frames=[df1/1000,df2/1000]
   if scale is None:
