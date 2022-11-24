@@ -35,7 +35,6 @@ opt=parser.parse_args()
 # Initialize model
 #==============================
 def init_model(action=opt.action,type=None,version=None):
-    print(f"we are doing init model and action is {action}")
     """
     Choose from type:Syn,Patho,Normal and version:best,last. 
     """
@@ -68,15 +67,6 @@ def run_inference(data_dir=opt.input_dir):
 #==============================
 # Train mode
 #==============================
-def make_loader(dataset,batch_size):
-  from torch.utils.data import DataLoader
-  loader = DataLoader(dataset,
-                      batch_size=batch_size,
-                      shuffle=True,
-                      drop_last=True
-                      )
-  return loader
-
 def run_train(opt=opt,device=device):
     data_dir=opt.input_dir
     model=init_model()
