@@ -2,7 +2,7 @@
 import pandas as pd
 from pathlib import Path
 import os
-def plotECG_12Lead(df1=None,df2=None,title=None,path=None,createECG=True,scale=None):
+def plotECG_12Lead(df1=None,df2=None,title=None,path=None,createECG=True,scale=1000):
   """
   takes two dataframes with identical columns, concats them and plots them as ecg using ecg_plot
   it also takes the first column of df1 and ads it to df1 if pad_df2 is True
@@ -19,7 +19,7 @@ def plotECG_12Lead(df1=None,df2=None,title=None,path=None,createECG=True,scale=N
         #Path(ecg_path).mkdir(parents=True, exist_ok=False)
         os.mkdir(ecg_path)
   if scale:
-    frames=[df1/1000,df2/1000]
+    frames=[df1/scale,df2/scale]
   if scale is None:
     frames=[df1,df2]
   combined_df=pd.concat(frames,axis=1,join="outer",)

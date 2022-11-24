@@ -1,6 +1,8 @@
 import torch
 import pandas as pd
-def get_pred_12lead(dataset,model=None,upscale=None):
+import random
+def get_pred_12lead(dataset,model=None,upscale=None,job=None):
+  print(f"doing {job} job")
   """
   Function takes a Tensor Dataset as input,first a random file from the dataset is selected,
   then the Tensor pair is recombined and shaped into a df-->df_Input. 
@@ -8,7 +10,12 @@ def get_pred_12lead(dataset,model=None,upscale=None):
   Both dataframes are now unscaled by 5011, the max value of the whole dataset.
   Then a tuple pair of input and output is returned.
   """
-  X,y=dataset
+  if job == "train" or job == "retrain":
+    limit=len(dataset)
+    rand_idx=random.randint(0,limit)
+    X,y=dataset[rand_idx]
+  if job == "inference":
+    X,y=dataset
   #need to combine tensors to make dataframe for plotting input and output side by side
   full_tensor=torch.cat((X,y.squeeze()))
   full_tensor=full_tensor.numpy()
