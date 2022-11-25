@@ -11,7 +11,9 @@ def train(model,train_loader,val_loader,test_dataset,opt,device):
   # Make the loss and optimizer
   criterion = nn.MSELoss()
   optimizer = torch.optim.Adam(model.parameters(), lr=opt.Lr)
-  #wandb.watch(model, criterion, log="all")
+  if opt.API_key:
+    import wandb
+    wandb.watch(model, criterion, log="all")
   for epoch in tqdm((range(opt.Epochs))):
     print("starting train loop")
     train_loss=0
@@ -48,10 +50,11 @@ def train(model,train_loader,val_loader,test_dataset,opt,device):
         # val_pred=torch.reshape(val_pred,(config.batch_size, 1, 7, 5000))
         loss=criterion(val_pred,y)
         val_loss += loss
-      val_loss /= len(val_loader)  
-    #   wandb.log({"train_loss": train_loss, 
-    #              "val_loss": val_loss,
-    #              "Epoch":epoch})
+      val_loss /= len(val_loader) 
+      if opt.API_key: 
+        wandb.log({"train_loss": train_loss, 
+                  "val_loss": val_loss,
+                    "Epoch":epoch})
       
 
     if (epoch) % 1==0:
@@ -64,7 +67,7 @@ def train(model,train_loader,val_loader,test_dataset,opt,device):
       #input_prediction_table = wandb.Table(dataframe=combined_df)
     #   wandb.log({"ECG": wandb.Image(str(ecg_dir_file))})
     #   wandb.log({"Input and predictions": input_prediction_table}) 
-      #torch.save(model.state_dict(),output_dir)
+      torch.save(model.state_dict(),output_dir+f"/modelstate_{epoch}")
       #scaled_output=df_output/1000
       #scaled_output.to_csv(opt.out_dir+f"/ecg{epoch}.csv")
 

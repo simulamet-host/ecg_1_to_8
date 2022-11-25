@@ -1,0 +1,63 @@
+  0%|                                                                                                                                                         | 0/3 [00:00<?, ?it/s]
+1it [00:01,  1.34s/it]
+starting run, mode is train
+starting train loop
+doing train step
+doing train step
+doing train step
+doing train step
+doing train step
+
+5it [00:03,  1.65it/s]
+doing train step
+doing train step
+doing train step
+
+1it [00:00,  9.52it/s]]
+1it [00:00,  9.71it/s]
+doing train step
+doing train step
+doing eval step
+doing testing step
+ 33%|████████████████████████████████████████████████▎                                                                                                | 1/3 [00:09<00:19,  9.72s/it]
+0it [00:00, ?it/s]
+starting train loop
+
+4it [00:02,  2.18it/s]
+doing train step
+doing train step
+doing train step
+
+6it [00:04,  1.31it/s]
+doing train step
+doing train step
+doing train step
+doing train step
+doing train step
+
+1it [00:00,  9.61it/s]]
+1it [00:00,  9.71it/s]
+doing train step
+doing eval step
+doing testing step
+ 67%|████████████████████████████████████████████████████████████████████████████████████████████████▋                                                | 2/3 [00:18<00:09,  9.46s/it]
+2it [00:00,  2.65it/s]
+starting train loop
+doing train step
+doing train step
+
+7it [00:02,  2.53it/s]
+doing train step
+doing train step
+doing train step
+doing train step
+1it [00:00, 10.15it/s]]
+0it [00:00, ?it/s]
+doing train step
+doing train step
+doing train step
+doing train step
+doing eval step
+doing testing step
+
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 3/3 [00:26<00:00,  8.85s/it]

@@ -1,0 +1,22 @@
+{
+    "os": "Windows-10-10.0.19044-SP0",
+    "python": "3.10.2",
+    "heartbeatAt": "2022-11-25T09:53:31.019755",
+    "startedAt": "2022-11-25T09:53:29.045241",
+    "docker": null,
+    "cpu_count": 6,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "c:\\Users\\tobia\\Documents\\GitHub\\ecg_1_to_8\\Autoencoder\\run_1to7_AE.py",
+    "codePath": "Autoencoder\\run_1to7_AE.py",
+    "git": {
+        "remote": "https://github.com/simulamet-host/ecg_1_to_8.git",
+        "commit": "269fe2d477fabb4e2c9c1aae7a94d2ca25b47be5"
+    },
+    "email": "twilli.gnl@gmail.com",
+    "root": "C:/Users/tobia/Documents/GitHub/ecg_1_to_8",
+    "host": "Tobi-Thinkpad-L15",
+    "username": "tobia",
+    "executable": "C:\\Users\\tobia\\AppData\\Local\\Programs\\Python\\Python310\\python.exe"
+}
