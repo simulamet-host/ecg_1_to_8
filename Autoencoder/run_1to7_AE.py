@@ -25,7 +25,7 @@ parser.add_argument("--out_dir",default="C:/Users/tobia/Desktop/Simula/studio_ou
 parser.add_argument("--input_dir",default="C:/Users/tobia/Desktop/Simula/studio_input")
 parser.add_argument("--model_type",default="Syn",choices=["Syn","Normal","Patho"])
 parser.add_argument("--model_version",default="best",choices=["best","last"])
-parser.add_argument("--action",default="train", type=str, help="Select an action to run", choices=["train", "retrain", "inference", "check"])
+parser.add_argument("--action",default="inference", type=str, help="Select an action to run", choices=["train", "retrain", "inference", "check"])
 parser.add_argument("--Epochs",default=3, type=int, help="Select Epochs to run for")
 parser.add_argument("--Batch_size",default=8, type=int, help="Select BAtch size, default is 32")
 parser.add_argument("--Lr",default=0.001, type=int, help="Select Learning rate")
@@ -40,7 +40,7 @@ def init_model(action=opt.action,type=None,version=None):
     """
     Choose from type:Syn,Patho,Normal and version:best,last. 
     """
-    state_path=file_path.joinpath("model_states",f"{opt.model_type}_{opt.model_version}")
+    state_path=file_path.parent.joinpath("checkpoints","Autoencoder",f"{opt.model_type}_{opt.model_version}")
     model=Pulse2pulseGenerator()
     if action == "inference" or action == "retrain":
         print(f"Checkpoint loaded since job is {action}")
