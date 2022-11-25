@@ -46,6 +46,11 @@ def init_model(action=opt.action,type=None,version=None):
         print(f"Checkpoint loaded since job is {action}")
         model.load_state_dict(torch.load(str(state_path),map_location="cpu"))
     return model
+
+torch.save({
+    "model_state_dict": init_model().state_dict(),
+}, opt.out_dir+"/model_state.pt")
+print("saved model")
 #==============================
 # Device handling
 #==============================
