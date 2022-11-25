@@ -27,7 +27,7 @@ parser.add_argument("--model_type",default="Syn",choices=["Syn","Normal","Patho"
 parser.add_argument("--model_version",default="best",choices=["best","last"])
 parser.add_argument("--action",default="train", type=str, help="Select an action to run", choices=["train", "retrain", "inference", "check"])
 parser.add_argument("--Epochs",default=3, type=int, help="Select Epochs to run for")
-parser.add_argument("--Batch_size",default=8, type=int, help="Select Epochs to run for")
+parser.add_argument("--Batch_size",default=8, type=int, help="Select BAtch size, default is 32")
 parser.add_argument("--Lr",default=0.001, type=int, help="Select Learning rate")
 parser.add_argument("--API_key",default=None, type=str, help="Add your WandB API key to send data to WandB")
 #7a8ee9d41cc2d51eb77fd795e14f74a215e63c2d
