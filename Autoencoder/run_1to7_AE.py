@@ -25,7 +25,7 @@ parser.add_argument("--out_dir",default="C:/Users/tobia/Desktop/Simula/studio_ou
 parser.add_argument("--input_dir",default="C:/Users/tobia/Desktop/Simula/studio_input")
 parser.add_argument("--model_type",default="Syn",choices=["Syn","Normal","Patho"])
 parser.add_argument("--model_version",default="best",choices=["best","last"])
-parser.add_argument("--action",default="inference", type=str, help="Select an action to run", choices=["train", "retrain", "inference", "check"])
+parser.add_argument("--action",default="train", type=str, help="Select an action to run", choices=["train", "retrain", "inference", "check"])
 parser.add_argument("--Epochs",default=3, type=int, help="Select Epochs to run for")
 parser.add_argument("--Batch_size",default=8, type=int, help="Select Epochs to run for")
 parser.add_argument("--Lr",default=0.001, type=int, help="Select Learning rate")
@@ -40,8 +40,8 @@ def init_model(action=opt.action,type=None,version=None):
     """
     state_path=file_path.joinpath("model_states",f"{opt.model_type}_{opt.model_version}")
     model=Pulse2pulseGenerator()
-    if action == "inference":
-        print("Checkpoint loaded")
+    if action == "inference" or action == "retrain":
+        print(f"Checkpoint loaded since job is {action}")
         model.load_state_dict(torch.load(str(state_path),map_location="cpu"))
     return model
 #==============================
@@ -65,13 +65,12 @@ def run_inference(data_dir=opt.input_dir):
         scaled_output.to_csv(opt.out_dir+f"/ecg{k}.csv")
 
 #==============================
-# Train mode
+# Train/retrain mode
 #==============================
 def run_train(opt=opt,device=device):
     data_dir=opt.input_dir
     model=init_model()
     train_loader=ML(CD(data_dir,split=True,target="train"),opt.Batch_size)
-    print(len(train_loader))
     val_loader=ML(CD(data_dir,split=True,target="val"),opt.Batch_size)
     test_dataset=CD(data_dir,split=True,target="test")
     train(model,train_loader,val_loader,test_dataset,opt=opt,device=device)
@@ -84,6 +83,7 @@ if __name__ == "__main__":
         pass
     elif opt.action == "retrain":
         print("Retrainning process is strted..!")
+        run_train()
         pass
     elif opt.action == "inference":
         run_inference()

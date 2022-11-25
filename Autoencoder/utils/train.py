@@ -7,13 +7,13 @@ def train(model,train_loader,val_loader,test_dataset,opt,device):
   device=device
   output_dir=opt.out_dir
   job=opt.action
-  print(job)
+  print(f"starting run, mode is {job}")
   # Make the loss and optimizer
   criterion = nn.MSELoss()
   optimizer = torch.optim.Adam(model.parameters(), lr=opt.Lr)
   #wandb.watch(model, criterion, log="all")
   for epoch in tqdm((range(opt.Epochs))):
-    print("start train loop")
+    print("starting train loop")
     train_loss=0
     for batch,(X,y) in tqdm((enumerate(train_loader))):
       print("doing train step")
@@ -59,7 +59,7 @@ def train(model,train_loader,val_loader,test_dataset,opt,device):
       df_input,df_output=predictions(test_dataset,model,upscale=5011,job=job)
       model.to(device)
       #plotting the ECG and creating the combined DF
-      combined_df=ecg(df_input,df_output,path=output_dir)
+      combined_df=ecg(df_input,df_output,title=f"_{job}_{epoch}",path=output_dir)
       #saving combined DF as table on wandB
       #input_prediction_table = wandb.Table(dataframe=combined_df)
     #   wandb.log({"ECG": wandb.Image(str(ecg_dir_file))})
