@@ -7,6 +7,7 @@ import pathlib
 import os
 from pathlib import Path
 from models.pTOP import *
+from utils.get_states import get_state
 from utils.dataloader_csv import Custom_dataset_CSV as CD
 from utils.dataloader_csv import make_loader as ML
 
@@ -23,28 +24,41 @@ file_path=pathlib.PurePath(__file__).parent
 #==============================
 parser.add_argument("--out_dir",default="C:/Users/tobia/Desktop/Simula/studio_output")
 parser.add_argument("--input_dir",default="C:/Users/tobia/Desktop/Simula/studio_input")
-parser.add_argument("--model_type",default="Syn",choices=["Syn","Normal","Patho"])
-parser.add_argument("--model_version",default="best",choices=["best","last"])
-parser.add_argument("--action",default="inference", type=str, help="Select an action to run", choices=["train", "retrain", "inference", "check"])
+parser.add_argument("--model_type",default="syn",choices=["syn","Normal","Patho"])
+parser.add_argument("--model_version",default="6",choices=["0","1","6","10"],help="model state 6 is usualy the best")
+parser.add_argument("--action",default="retrain", type=str, help="Select an action to run", choices=["train", "retrain", "inference", "check"])
 parser.add_argument("--Epochs",default=3, type=int, help="Select Epochs to run for")
 parser.add_argument("--Batch_size",default=8, type=int, help="Select BAtch size, default is 32")
 parser.add_argument("--Lr",default=0.001, type=int, help="Select Learning rate")
 parser.add_argument("--API_key",default=None, type=str, help="Add your WandB API key to send data to WandB")
+parser.add_argument("--down_state",default=True, type=bool, help="Specify to download a fresh model state")
+
 #7a8ee9d41cc2d51eb77fd795e14f74a215e63c2d
 
 opt=parser.parse_args()
+
+#==============================
+# Get model state
+#==============================
+def get_model_state(opt):
+    path=f"https://github.com/t-willi/LargeFileStorage/blob/main/Simula_model_checkpoints/{opt.model_type}_v{opt.model_version}.pt?raw=true"
+    print("downloading model state dict")
+    get_state(state_path=path,save_path=opt.input_dir)
+
 #==============================
 # Initialize model
 #==============================
-def init_model(action=opt.action,type=None,version=None):
+def init_model(input_dir=opt.input_dir,action=opt.action,type=None,version=None):
     """
     Choose from type:Syn,Patho,Normal and version:best,last. 
     """
-    state_path=file_path.parent.joinpath("checkpoints","Autoencoder",f"{opt.model_type}_{opt.model_version}")
+    #state_path=file_path.parent.joinpath("checkpoints","Autoencoder",f"{opt.model_type}_{opt.model_version}")
     model=Pulse2pulseGenerator()
     if action == "inference" or action == "retrain":
+        if opt.down_state == "True":
+            get_model_state(opt)
         print(f"Checkpoint loaded since job is {action}")
-        model.load_state_dict(torch.load(str(state_path),map_location="cpu"))
+        model.load_state_dict(torch.load(input_dir+"/model_state/model.pt",map_location="cpu"))
     return model
 
 #==============================
