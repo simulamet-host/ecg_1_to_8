@@ -89,8 +89,10 @@ def run_inference(type,version,input_path,output_path=None,normalize=None):
 def Syn_trans(type="syn",input_path=None,output_path=None,normalize=None):
     """
     function takes in input_path leading to folder with ecg.csv files. Files should contain 8 columns and 5000 rows of data plus an index.
+    The first columns will be used to generate 12 leads, the output will be 24 signals, left the input data and right the generated data.
     If no output folder is specified output folder will be created in same dir as input folder
-    If there is a need to normalize the data to [1,-1] set normalize to True, 
+    If there is a need to normalize the data to [1,-1] set normalize to True.
+    For now user is required to run !pip install ecg_plot to install plotting package.
     """
     run_inference(type,"6",input_path,output_path,normalize=normalize)
 
