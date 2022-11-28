@@ -6,14 +6,15 @@ import glob
 import pathlib
 import os
 from pathlib import Path
-from models.pTOP import *
-from utils.get_states import get_state
-from utils.dataloader_csv import Custom_dataset_CSV as CD
-from utils.dataloader_csv import make_loader as ML
+from Autoencoder.models.pTOP import *
+#from models.pTOP import *
+from Autoencoder.utils.get_states import get_state
+from Autoencoder.utils.dataloader_csv import Custom_dataset_CSV as CD
+from Autoencoder.utils.dataloader_csv import make_loader as ML
 
-from utils.get_predictions import get_pred_12lead as predictions
-from utils.get_ecgs import plotECG_12Lead as ecg
-from utils.train import train
+from Autoencoder.utils.get_predictions import get_pred_12lead as predictions
+from Autoencoder.utils.get_ecgs import plotECG_12Lead as ecg
+from Autoencoder.utils.train import train
 
 seed=42
 np.random.seed(seed)  # numpy random generator
@@ -29,7 +30,7 @@ parser.add_argument("--out_dir",default="C:/Users/tobia/Desktop/Simula/studio_ou
 parser.add_argument("--input_dir",default="C:/Users/tobia/Desktop/Simula/studio_input")
 parser.add_argument("--model_type",default="syn",choices=["syn","Normal","Patho"])
 parser.add_argument("--model_version",default="6",choices=["0","1","6","10"],help="model state 6 is usualy the best")
-parser.add_argument("--action",default="retrain", type=str, help="Select an action to run", choices=["train", "retrain", "inference", "check"])
+parser.add_argument("--action",default="inference", type=str, help="Select an action to run", choices=["train", "retrain", "inference", "check"])
 parser.add_argument("--Epochs",default=3, type=int, help="Select Epochs to run for")
 parser.add_argument("--Batch_size",default=8, type=int, help="Select BAtch size, default is 32")
 parser.add_argument("--Lr",default=0.001, type=int, help="Select Learning rate")
@@ -51,14 +52,19 @@ def get_model_state(opt):
 #==============================
 # Initialize model
 #==============================
-def init_model(input_dir=opt.input_dir,action=opt.action,type=None,version=None):
+def init_model(opt,type=None,version=None):
     """
     Choose from type:Syn,Patho,Normal and version:best,last. 
     """
     #state_path=file_path.parent.joinpath("checkpoints","Autoencoder",f"{opt.model_type}_{opt.model_version}")
+    input_dir=opt.input_dir
+    action=opt.action
+    load_model=opt.down_state
     model=Pulse2pulseGenerator()
     if action == "inference" or action == "retrain":
-        if opt.down_state == "True":
+        print(load_model)
+        if load_model:
+            print("calling get")
             get_model_state(opt)
         print(f"Checkpoint loaded since job is {action}")
         model.load_state_dict(torch.load(input_dir+"/model_state/model.pt",map_location="cpu"))
@@ -74,11 +80,13 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Inference mode
 #==============================
 print("created output folder")
-def run_inference(data_dir=opt.input_dir):
+def run_inference(opt):
+    data_dir=opt.input_dir
     dataset=CD(data_dir,split=False)
+    model=init_model(opt)
     print("data was generated")
     for k,(i) in enumerate(dataset):
-        input,output=predictions(dataset=i,model=init_model(),upscale=5011,job=opt.action)
+        input,output=predictions(dataset=i,model=model,upscale=5011,job=opt.action)
         print("predictions were made")
         ecg_df=ecg(input,output,title=k,path=opt.out_dir)
         scaled_output=output/1000
@@ -111,6 +119,6 @@ if __name__ == "__main__":
         run_train()
         pass
     elif opt.action == "inference":
-        run_inference()
+        run_inference(opt)
         print("Inference process is started..!")
         pass

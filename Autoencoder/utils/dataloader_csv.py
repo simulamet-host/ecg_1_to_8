@@ -1,6 +1,7 @@
 import glob
 import pandas as pd
 import torch
+import numpy as np
 class Custom_dataset_CSV():
     def __init__(self, data_dir,max_value=5011,column=3,split=True,target="train",size=1):
       #get all files from directory loaded in all_files list
@@ -23,11 +24,11 @@ class Custom_dataset_CSV():
 
     def __len__(self):
       if self.split is True:
-        if self.target is "train":
+        if self.target == "train":
           return len(self.train_files)
-        if self.target is "test":
+        if self.target == "test":
           return len(self.test_files)
-        if self.target is "val":
+        if self.target == "val":
           return len(self.val_files)
       if self.split is not True:
         return len(self.files)
@@ -36,14 +37,15 @@ class Custom_dataset_CSV():
       header=["I", "II", "v1", "v2", "v3", "v4", "v5", "v6"]
       #turn list of dataframes into Tensor
       if self.split is True:
-        if self.target is "train":
+        if self.target == "train":
           temp_df=pd.read_csv(self.train_files[idx],index_col=0,header=0,names=header)
-        if self.target is "test":
+        if self.target == "test":
           temp_df=pd.read_csv(self.test_files[idx],index_col=0,header=0,names=header)
-        if self.target is "val":
+        if self.target == "val":
           temp_df=pd.read_csv(self.val_files[idx],index_col=0,header=0,names=header)
       if self.split is not True:
         temp_df=pd.read_csv(self.files[idx],index_col=0,header=0,names=header)
+      temp_df.index=[np.arange(0,5000)]
       temp_df/=self.max_value
       #load input tensor
       
