@@ -96,6 +96,7 @@ def Syn_trans(type="syn",input_path=None,output_path=None,normalize=None):
     """
     run_inference(type,"6",input_path,output_path,normalize=normalize)
 
-Syn_trans(type="syn",input_path="C:/Users/tobia/Desktop/Simula/ecg_gen/input",normalize=True)
+
+#Syn_trans(type="syn",input_path="C:/Users/tobia/Desktop/Simula/ecg_gen/input",normalize=True)
 
 #output_path="C:/Users/tobia/Desktop/Simula/ecg_gen/output"
