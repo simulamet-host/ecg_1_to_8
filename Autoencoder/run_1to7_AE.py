@@ -15,8 +15,11 @@ from utils.get_predictions import get_pred_12lead as predictions
 from utils.get_ecgs import plotECG_12Lead as ecg
 from utils.train import train
 
-torch.manual_seed(42)
-np.random.seed(42)
+seed=42
+np.random.seed(seed)  # numpy random generator
+torch.manual_seed(seed)
+torch.cuda.manual_seed_all(seed)
+
 parser = argparse.ArgumentParser()
 file_path=pathlib.PurePath(__file__).parent
 #==============================

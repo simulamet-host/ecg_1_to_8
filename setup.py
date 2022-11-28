@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="1to7_ecg_generator", # Replace with your own username
-    version="1.1.2",
+    version="0.0.1",
     author="Tobias Willi",
     author_email="twilli.gnl@gmail.com",
     description="translates lead 1 ECG to 12 lead ECG",
