@@ -62,7 +62,7 @@ def train(model,train_loader,val_loader,test_dataset,opt,device):
       df_input,df_output=predictions(test_dataset,model,upscale=5011,job=job)
       model.to(device)
       #plotting the ECG and creating the combined DF
-      combined_df=ecg(df_input,df_output,title=f"_{job}_{epoch}",path=output_dir)
+      combined_df=ecg(df_input,df_output,title=f"_{job}_{epoch}",path=output_dir,unit=opt.unit)
       #saving combined DF as table on wandB
       #input_prediction_table = wandb.Table(dataframe=combined_df)
     #   wandb.log({"ECG": wandb.Image(str(ecg_dir_file))})

@@ -36,6 +36,10 @@ parser.add_argument("--Batch_size",default=8, type=int, help="Select BAtch size,
 parser.add_argument("--Lr",default=0.001, type=int, help="Select Learning rate")
 parser.add_argument("--API_key",default=None, type=str, help="Add your WandB API key to send data to WandB")
 parser.add_argument("--down_state",default=True, type=bool, help="Specify to download a fresh model state")
+parser.add_argument("--unit",default="µV", type=str, help="Specify the unit the ecg is in")
+parser.add_argument("--max_value",default=5011, type=str, help="Specify the unit the ecg is in")
+
+
 
 #7a8ee9d41cc2d51eb77fd795e14f74a215e63c2d
 
@@ -88,9 +92,11 @@ def run_inference(opt):
     for k,(i) in enumerate(dataset):
         input,output=predictions(dataset=i,model=model,upscale=5011,job=opt.action)
         print("predictions were made")
-        ecg_df=ecg(input,output,title=k,path=opt.out_dir)
-        scaled_output=output/1000
-        scaled_output.to_csv(opt.out_dir+f"/ecg{k}.csv")
+        ecg_df=ecg(input,output,title=f"_{opt.action}_{k}",path=opt.out_dir,unit=opt.unit)
+        scaled_output=output
+        if opt.unit == "µV":
+            scaled_output=output/1000
+        scaled_output.to_csv(opt.out_dir+f"/ecg_{opt.action}_{k}.csv")
 
 #==============================
 # Train/retrain mode
@@ -102,10 +108,10 @@ def run_train(opt=opt,device=device):
         wandb.login(key=opt.API_key)
         wandb.init()
     data_dir=opt.input_dir
-    model=init_model()
-    train_loader=ML(CD(data_dir,split=True,target="train"),opt.Batch_size)
-    val_loader=ML(CD(data_dir,split=True,target="val"),opt.Batch_size)
-    test_dataset=CD(data_dir,split=True,target="test")
+    model=init_model(opt)
+    train_loader=ML(CD(data_dir,max_value=opt.max_value,split=True,target="train"),opt.Batch_size)
+    val_loader=ML(CD(data_dir,max_value=opt.max_value,split=True,target="val"),opt.Batch_size)
+    test_dataset=CD(data_dir,max_value=opt.max_value,split=True,target="test")
     train(model,train_loader,val_loader,test_dataset,opt=opt,device=device)
 
 if __name__ == "__main__":
