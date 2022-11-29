@@ -94,7 +94,7 @@ def Syn_trans(type="syn",input_path=None,output_path=None,normalize=None):
     If there is a need to normalize the data to [1,-1] set normalize to True.
     For now user is required to run !pip install ecg_plot to install plotting package.
     """
-    run_inference(type,"6",input_path,output_path,normalize=normalize)
+    run_inference(type,"best",input_path,output_path,normalize=normalize)
 
 
 #Syn_trans(type="syn",input_path="C:/Users/tobia/Desktop/Simula/ecg_gen/input",normalize=True)
