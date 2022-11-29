@@ -61,10 +61,7 @@ def run_inference(type,version,input_path,output_path,normalize,unit):
         print("predictions were made")
         unit=unit
         ecg_df=ecg(input,output,title=k,path=output_dir,unit=unit)
-        scaled_output=ecg_df
-        if unit == "µV":
-            scaled_output=ecg_df/1000
-        scaled_output.to_csv(output_dir+f"/ecg{k}.csv")
+        ecg_df.to_csv(output_dir+f"/ecg{k}.csv")
 
 def Syn_trans(type="norm",version="best",input_path=None,output_path=None,normalize=True,unit="mV"):
     """
