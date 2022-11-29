@@ -81,5 +81,5 @@ def ecgloss_visual(input_dir,output_dir):
         plot_ECG_loss_over_time(input=sub,path=output_dir,version=k)
 
 
-input_dir="C:/Users/tobia/Desktop/Simula/ecg_gen/output"
-ecgloss_visual(input_dir=input_dir,output_dir=input_dir)
+#input_dir="C:/Users/tobia/Desktop/Simula/ecg_gen/output"
+#ecgloss_visual(input_dir=input_dir,output_dir=input_dir)
