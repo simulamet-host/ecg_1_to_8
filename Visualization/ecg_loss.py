@@ -47,17 +47,19 @@ def get_lists(input_dir):
 #all_loss_list,all_loss_over_time_list,all_lead_pair_list=get_lists("C:/Users/tobia/Desktop/Simula/ecg_gen/output")
 
 def overlapping_leads(version=None,lead_pairs=None,path=None):
-  fig,axs=plt.subplots(12,figsize=(10,6))
-  plt.ylabel("mV")
+  fig,axs=plt.subplots(12,sharex=True,sharey=True,figsize=(15,8))
+  plt.ylabel("mV",x=0.5,y=7.5)
   plt.xlabel("timesteps")
-  plt.title("Real and predicted lead pairs 1,2,v1,v2,v3,v4,v5,v6", x=0.5,y=9.9)
+  plt.title("Real and predicted lead pairs I,II,III,aVR,aVL,aVF,v1,v2,v3,v4,v5,v6", x=0.5,y=14.5)
   save_dir=str(Path(path).joinpath("loss_visual"))
   os.makedirs(save_dir,exist_ok=True)
   for k,(real,synth) in enumerate(lead_pairs):
     axs[k].plot(real.tolist(),label="real",linewidth=0.5,c="g",alpha=1)
     axs[k].plot(synth.tolist(),label="prediction",linewidth=0.5,c="r",alpha=0.5)
-  plt.legend(loc=1, bbox_to_anchor=(1,11))
+  plt.legend(loc=1, bbox_to_anchor=(1,15.7))
   plt.savefig(f"{save_dir}/overlap_{version}.pdf", format="pdf", bbox_inches="tight")
+  plt.close()
+
     
 def plot_ECG_loss_over_time(input=None,path=None,version=None):
   """
@@ -81,5 +83,5 @@ def ecgloss_visual(input_dir,output_dir):
         plot_ECG_loss_over_time(input=sub,path=output_dir,version=k)
 
 
-#input_dir="C:/Users/tobia/Desktop/Simula/ecg_gen/output"
-#ecgloss_visual(input_dir=input_dir,output_dir=input_dir)
+input_dir="C:/Users/tobia/Desktop/Simula/ecg_gen/output"
+ecgloss_visual(input_dir=input_dir,output_dir=input_dir)

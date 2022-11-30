@@ -74,6 +74,6 @@ def Syn_trans(type="norm",version="best",input_path=None,output_path=None,normal
     run_inference(type,version,input_path,output_path,normalize,unit)
 
 
-#Syn_trans(type="norm",input_path="C:/Users/tobia/Desktop/Simula/ecg_gen/input",normalize=True,unit="mV")
+Syn_trans(type="norm",input_path="C:/Users/tobia/Desktop/Simula/ecg_gen/input",normalize=True,unit="mV")
 
 #output_path="C:/Users/tobia/Desktop/Simula/ecg_gen/output"
