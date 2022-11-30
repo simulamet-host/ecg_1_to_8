@@ -29,20 +29,21 @@ def get_pred_12lead(dataset,model=None,upscale=None,job=None):
   output=output.squeeze().T
   #unscale data
   df_output = pd.DataFrame(output,columns=["pred_II","pred_v1","pred_v2","pred_v3","pred_v4","pred_v5","pred_v6"])
+  if upscale:
+    print(f"data upscaled by {upscale}")
+    df_input=df_input*upscale
+    df_output=df_output*upscale
   #calculate the 4 missing leads
   df_input.insert(2, "real_III", df_input["real_II"] - df_input["real_I"])
   df_input.insert(3,"real_aVR",0.5*(df_input["real_I"] + df_input["real_II"]))
-  df_input.insert(4,"real_aVL",(df_input["real_I"] -0.5) * df_input["real_II"])
-  df_input.insert(5,"real_aVF",(df_input["real_II"] -0.5) * df_input["real_I"])
+  df_input.insert(4,"real_aVL",(df_input["real_I"] - (0.5 * df_input["real_II"])))
+  df_input.insert(5,"real_aVF",(df_input["real_II"] -( 0.5 * df_input["real_I"])))
   df_output.insert(0,"real_I",df_input["real_I"])
   df_output.insert(2,"real_III",df_output["pred_II"] - df_output["real_I"])
   df_output.insert(3,"real_aVR",0.5*(df_output["real_I"] + df_output["pred_II"]))
-  df_output.insert(4,"real_aVL",(df_output["real_I"] -0.5) * df_output["pred_II"])
-  df_output.insert(5,"real_aVF",(df_output["pred_II"] -0.5) * df_output["real_I"])
-  if upscale:
-    df_input=df_input*upscale
-    df_output=df_output*upscale
-    
+  df_output.insert(4,"real_aVL",(df_output["real_I"] - (0.5 * df_output["pred_II"])))
+  df_output.insert(5,"real_aVF",(df_output["pred_II"] - (0.5 * df_output["real_I"])))
+   
   return df_input,df_output
 
 # lead III value = (lead II value) - (lead I value)
