@@ -34,18 +34,23 @@ class Custom_dataset_CSV():
         return len(self.files)
 
     def __getitem__(self,idx):
-      header=["I", "II", "v1", "v2", "v3", "v4", "v5", "v6"]
+      header_8=["I", "II", "v1", "v2", "v3", "v4", "v5", "v6"]
+      header_12=["I", "II","III","aVR","aVL","aVF", "v1", "v2", "v3", "v4", "v5", "v6"]
       #turn list of dataframes into Tensor
       if self.split is True:
         if self.target == "train":
-          temp_df=pd.read_csv(self.train_files[idx],index_col=0,header=0,names=header)
+          temp_df=pd.read_csv(self.train_files[idx],index_col=0,header=0)
         if self.target == "test":
-          temp_df=pd.read_csv(self.test_files[idx],index_col=0,header=0,names=header)
+          temp_df=pd.read_csv(self.test_files[idx],index_col=0,header=0)
         if self.target == "val":
-          temp_df=pd.read_csv(self.val_files[idx],index_col=0,header=0,names=header)
+          temp_df=pd.read_csv(self.val_files[idx],index_col=0,header=0)
       if self.split is not True:
-        temp_df=pd.read_csv(self.files[idx],index_col=0,header=0,names=header)
+        temp_df=pd.read_csv(self.files[idx],index_col=0,header=0)
       temp_df.index=[np.arange(0,5000)]
+      if len(temp_df.columns) == 8:
+        temp_df.columns=header_8
+      else:
+        temp_df.columns=header_12
       temp_df/=self.max_value
       #load input tensor
       

@@ -77,18 +77,24 @@ def plot_ECG_loss_over_time(title="_",input=None,path=None,version=None,label=No
     axs[k].legend(loc='upper right')
   #plt.legend(loc=1, bbox_to_anchor=(1,15.7))
   plt.savefig(f"{save_dir}/{title}_LossOverTime_{version}.pdf", format="pdf", bbox_inches="tight")
+  plt.close()
+
 
 
 #plot_ECG_loss_over_time(loss_over_time_list)
 
 def ecgloss_visual(title,input_dir,output_dir):
-    x,y,z=get_lists(input_dir)
-    for k,sub in enumerate(z):
-        overlapping_leads(title,version=k,lead_pairs=sub,path=output_dir)
-    for loss in x:
-      for k,sub in enumerate(y):
-        plot_ECG_loss_over_time(title,input=sub,path=output_dir,version=k,label=loss)
+  print("calculating...")
+  x,y,z=get_lists(input_dir)
+  print("Overlapping leads...")
+  for k,sub in enumerate(z):
+    overlapping_leads(title,version=k,lead_pairs=sub,path=output_dir)
+  print("Plotting loss over time...")
+  for k,i in enumerate(range(len(x))):
+    plot_ECG_loss_over_time(title,input=y[i],path=output_dir,version=k,label=x[i])
+  print("visualization done")
 
 
-input_dir="C:/Users/tobia/Desktop/Simula/ecg_gen/output"
-ecgloss_visual(title="not_normalized",input_dir=input_dir,output_dir=input_dir)
+input_dir="C:/Users/tobia/Desktop/Simula/ecg_gen/output/syn"
+ecgloss_visual(title="CD",input_dir=input_dir,output_dir=input_dir)
+
