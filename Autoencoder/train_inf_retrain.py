@@ -66,9 +66,7 @@ def init_model(opt,type=None,version=None):
     load_model=opt.down_state
     model=Pulse2pulseGenerator()
     if action == "inference" or action == "retrain":
-        print(load_model)
         if load_model:
-            print("calling get")
             get_model_state(opt)
         print(f"Checkpoint loaded since job is {action}")
         model.load_state_dict(torch.load(input_dir+"/model_state/model.pt",map_location="cpu"))

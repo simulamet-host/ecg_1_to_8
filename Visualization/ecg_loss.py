@@ -101,6 +101,6 @@ def ecgloss_visual(title,input_dir,output_dir):
   print("visualization done")
 
 
-input_dir="C:/Users/tobia/Desktop/Simula/ecg_gen/output/syn"
-ecgloss_visual(title="syn",input_dir=input_dir,output_dir=input_dir)
+#input_dir="C:/Users/tobia/Desktop/Simula/ecg_gen/output/"
+#ecgloss_visual(title="syn",input_dir=input_dir,output_dir=input_dir)
 
