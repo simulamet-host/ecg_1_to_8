@@ -47,13 +47,17 @@ class Custom_dataset_CSV():
       if self.split is not True:
         temp_df=pd.read_csv(self.files[idx],index_col=0,header=0)
       temp_df.index=[np.arange(0,5000)]
+      if len(temp_df.columns) == 1:
+        print("found only one column")
+        print("adding columns for plotting purposes")
+        for i in range(7):
+          temp_df[i]=0
       if len(temp_df.columns) == 8:
         temp_df.columns=header_8
       else:
         temp_df.columns=header_12
       temp_df/=self.max_value
       #load input tensor
-      
       temp_list_in=temp_df.loc[:,"I"]
       #temp_list_in=normalize([temp_list_in], norm="max")
       temp_tensor_in = torch.tensor(temp_list_in,dtype=torch.float32)

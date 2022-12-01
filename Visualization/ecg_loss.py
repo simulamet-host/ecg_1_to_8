@@ -15,6 +15,9 @@ import os
 
 
 def get_lists(input_dir):
+    """
+    Takes CSV files from input dir and returns MSELoss,pointwise loss and paired leads for ploting overlapping leads
+    """
     test_data=glob.glob(input_dir + '/*.csv')
     all_loss_list=[]
     all_loss_over_time_list=[]
@@ -47,6 +50,9 @@ def get_lists(input_dir):
 #all_loss_list,all_loss_over_time_list,all_lead_pair_list=get_lists("C:/Users/tobia/Desktop/Simula/ecg_gen/output")
 
 def overlapping_leads(title="_",version=None,lead_pairs=None,path=None):
+  """
+  used a list of paired leads to plot them overlapping
+  """
   fig,axs=plt.subplots(12,sharex=True,sharey=True,figsize=(15,8))
   plt.ylabel("mV",x=0.5,y=7.5)
   plt.xlabel("timesteps")
@@ -63,7 +69,7 @@ def overlapping_leads(title="_",version=None,lead_pairs=None,path=None):
     
 def plot_ECG_loss_over_time(title="_",input=None,path=None,version=None,label=None):
   """
-  enter a list of losses over time 
+  Takes a list of pointwise losses and returns as plot. Adds the MSELoss to each subplot as label 
   """
   save_dir=str(Path(path).joinpath("loss_visual"))
   os.makedirs(save_dir,exist_ok=True)
@@ -96,5 +102,5 @@ def ecgloss_visual(title,input_dir,output_dir):
 
 
 input_dir="C:/Users/tobia/Desktop/Simula/ecg_gen/output/syn"
-ecgloss_visual(title="CD",input_dir=input_dir,output_dir=input_dir)
+ecgloss_visual(title="syn",input_dir=input_dir,output_dir=input_dir)
 
