@@ -8,7 +8,6 @@ Autoencoder/train_inf_retrain.py
 Autoencoder/models/__init__.py
 Autoencoder/models/pTOP.py
 Autoencoder/utils/__init__.py
-Autoencoder/utils/custom_dataclass_loader.py
 Autoencoder/utils/dataloader_csv.py
 Autoencoder/utils/find_max.py
 Autoencoder/utils/get_ecgs.py
