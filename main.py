@@ -26,7 +26,7 @@ train_configuration = {
     'INPUT_LEADS': 1,
     'NETWORK_OPTION': 'GAN',                     # GAN | UNET
     'LEARNING_RATE': 0.0001,
-    'MODEL_SIZE': 16,
+    'MODEL_SIZE': 32,
     'BATCH_SIZE': 32,
     'EPOCHS': 500,
     'DISCRIMINATOR_PATCH_SIZE': 1000,
@@ -37,7 +37,7 @@ test_configuration = {
     'DATASET_OPTION': 'PTB',
     'INPUT_LEADS': 1,
     'NETWORK_OPTION': 'GAN',
-    'MODEL_SIZE': 16,
+    'MODEL_SIZE': 32,
     'SAVED_MODEL': "test_models/gan_generator_epoch_120",
     'OUTPUTS_FOLDER': "test_models",
     'INPUT_PATH': "test_models/example_input.csv",
@@ -545,8 +545,8 @@ def generate_outputs(number_of_leads_as_input: int,
     generator = generator.to(device)
     generator.eval()
 
-    temp_df = pd.read_csv(input_path, header=None, index_col=False)
-    source_leads = torch.tensor(np.clip(temp_df[0].values / normalize_factor, a_min=-1, a_max=1), dtype=torch.float32).unsqueeze(0).unsqueeze(0)
+    temp_df = pd.read_csv(input_path, header=None, index_col=False, dtype=float)
+    source_leads = torch.tensor(np.clip(temp_df.iloc[:, :number_of_leads_as_input].values / normalize_factor, a_min=-1, a_max=1), dtype=torch.float32).t().unsqueeze(0)
     source_leads_array = np.array(source_leads[0] * normalize_factor, dtype=float)
     
     with torch.inference_mode():

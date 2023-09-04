@@ -63,6 +63,10 @@ Generate outputs from a csv:
     python main.py --action=generate --input=./test_models/example_input.csv --network=GAN --model-size=32 --saved-model=./test_models/gan_1lead_checkpoint.pt --outputs-folder=test_models --plots --seconds=10 --columns=4 --range=1.8 --csv --normalize-factor=8
 ```
 
+```bash
+    python main.py --action=generate --input=./test_models/example_input_2leads.csv --saved-model=./test_models/gan_2leads_checkpoint.pt  --input-leads=2 --outputs-folder=test_models --plots --csv
+```
+
 Testing (compute metrics on the test dataset):
 ```bash
     python main.py --action=test --dataset=PTB --network=GAN --model-size=32 --saved-model=./test_models/gan_1lead_checkpoint.pt

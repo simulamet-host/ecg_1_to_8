@@ -6,8 +6,8 @@ import numpy as np
 from matplotlib.ticker import AutoMinorLocator, MultipleLocator
 
 
-def create_and_save_plot(leadI, leadsII_VIII, generated_leads_II_VIII, filename, file_extension='.pdf'):
-    number_of_input_leads = leadI.shape[0]
+def create_and_save_plot(source_leads, target_leads, generated_target_leads, filename, file_extension='.pdf'):
+    number_of_input_leads = source_leads.shape[0]
     LINE_WIDTH = 0.3
     fig, axs = plt.subplots(4, 2, figsize=(18, 12))
 
@@ -19,13 +19,13 @@ def create_and_save_plot(leadI, leadsII_VIII, generated_leads_II_VIII, filename,
             axs[i, j].grid(which='minor', color='#CCCCCC', linestyle=':', linewidth=LINE_WIDTH / 2)
 
     for i in range(number_of_input_leads):
-        axs[i, 0].plot(leadI[i], linewidth=LINE_WIDTH)
+        axs[i, 0].plot(source_leads[i], linewidth=LINE_WIDTH)
     for i in range(number_of_input_leads, 4):
-        axs[i, 0].plot(leadsII_VIII[i - number_of_input_leads], linewidth=LINE_WIDTH)
-        axs[i, 0].plot(generated_leads_II_VIII[i], linewidth=LINE_WIDTH)
+        axs[i, 0].plot(target_leads[i - number_of_input_leads], linewidth=LINE_WIDTH)
+        axs[i, 0].plot(generated_target_leads[i], linewidth=LINE_WIDTH)
     for i in range(4):
-        axs[i, 1].plot(leadsII_VIII[i + 4 - number_of_input_leads], linewidth=LINE_WIDTH)
-        axs[i, 1].plot(generated_leads_II_VIII[i + 4 - number_of_input_leads], linewidth=LINE_WIDTH)
+        axs[i, 1].plot(target_leads[i + 4 - number_of_input_leads], linewidth=LINE_WIDTH)
+        axs[i, 1].plot(generated_target_leads[i + 4 - number_of_input_leads], linewidth=LINE_WIDTH)
     fig.savefig(Path(filename + file_extension))
     plt.close(fig)
 
