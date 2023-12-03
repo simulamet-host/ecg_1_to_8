@@ -14,15 +14,29 @@ Clone the repository and install the requirements
 pip install -r requirements.txt
 ```
 
-To prepare the PTB-XL dataset, ensure the `PATH_TO_PTB_DATA` value from `convert_ptb.py` is correct, then run the following command:
+Download the PTB-XL dataset from [here](https://physionet.org/content/ptb-xl/1.0.3/). Unzip the dataset.
+To prepare the PTB-XL dataset, ensure the `PATH_TO_PTB_DATA` value from `convert_ptb.py` is correct, meaning it is the path to the unzipped dataset, then run the following command:
     
 ```bash
 python convert_ptb.py
 ```
 
+We tested the code using Python 3.10 and the libraries from `requirements.txt`.
+
+The code should run on most computers with a GPU and CUDA installed.
+
+We provide usage examples below in the form of command lines. We provide pretrained models for 1-lead and 2-leads input which can be downloaded from the links above. The path to the models will be given as argument when running the program.
+
+The reported times are estimates for a computer with a recent GPU and CUDA installed. 
+Preparing the PTB-XL dataset takes around 10 minutes, depending on the computer, but it only needs to be done once.
+Training the models takes around 4 hours.
+Generating outputs from the test dataset takes around 10 minutes.
+Generating outputs from a single csv input takes around 10 seconds.
+Computing the metrics on the test dataset takes around 3 minutes.
+
 ## Usage examples
 
-Training:
+### Training:
 
 One lead as input
 ```bash
@@ -33,7 +47,8 @@ Two leads as input
     python main.py --action=train --dataset=PTB --network=GAN --model-size=32 --epochs=200 --save-every=5 --input-leads=2
 ```
 
-Generate outputs from the test datasets using a trained model:
+
+### Generate outputs from the test datasets using a trained model:
 ```bash
     python main.py --action=generate_outputs --dataset=PTB --network=GAN --model-size=32 --saved-model=./test_models/gan_1lead_checkpoint.pt --outputs-folder=test_models --plots --csv --limit=100
 ```
@@ -54,7 +69,7 @@ Generate outputs from the test datasets using a trained model:
     python main.py --action=generate_outputs --dataset=PTB --network=GAN --model-size=32 --saved-model=./test_models/gan_1lead_checkpoint.pt --plots --seconds=2.5 --columns=4 --range=5.8 --index=8569 --index=8616
 ```
 
-Generate outputs from a csv:
+### Generate outputs from a csv:
 ```bash
     python main.py --action=generate --input=./test_models/example_input.csv --saved-model=./test_models/gan_1lead_checkpoint.pt --outputs-folder=test_models --plots --csv
 ```
@@ -67,7 +82,7 @@ Generate outputs from a csv:
     python main.py --action=generate --input=./test_models/example_input_2leads.csv --saved-model=./test_models/gan_2leads_checkpoint.pt  --input-leads=2 --outputs-folder=test_models --plots --csv
 ```
 
-Testing (compute metrics on the test dataset):
+### Testing (compute metrics on the test dataset):
 ```bash
     python main.py --action=test --dataset=PTB --network=GAN --model-size=32 --saved-model=./test_models/gan_1lead_checkpoint.pt
 ```
