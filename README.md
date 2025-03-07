@@ -1,6 +1,6 @@
 # ECG_1_to_8
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14970482.svg)](https://doi.org/10.5281/zenodo.14970482)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14986849.svg)](https://doi.org/10.5281/zenodo.14986849)
 
 ## [Paper](TBD) | [GitHub](https://github.com/simulamet-host/ecg_1_to_8) | [Trained Model 1 lead input](https://drive.google.com/file/d/1wdUp-Rs2TIjKDw1ih5NaTNUtlFyDxTYC/view) | [Trained Model 2 leads input](https://drive.google.com/file/d/1jExuEZxfo7sy_R6EPcFLbEu3FG7KYOe7/view) | [Example ECGs from the PTB dataset](https://drive.google.com/file/d/11yZi6Oxtt2A-AHmhJYhlGJ2zFJVFm2uM/view)
 ---
