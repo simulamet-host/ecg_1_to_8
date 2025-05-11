@@ -95,6 +95,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Citation:
 ```latex
+Presacan, O., Dorobanţiu, A., Isaksen, J.L. et al. Evaluating the feasibility of 12-lead electrocardiogram reconstruction from limited leads using deep learning. Commun Med 5, 139 (2025). https://doi.org/10.1038/s43856-025-00814-w
 ```
 
 ## License
