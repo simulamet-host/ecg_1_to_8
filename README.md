@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14986849.svg)](https://doi.org/10.5281/zenodo.14986849)
 
-## [Paper](TBD) | [GitHub](https://github.com/simulamet-host/ecg_1_to_8) | [Trained Model 1 lead input](https://drive.google.com/file/d/1wdUp-Rs2TIjKDw1ih5NaTNUtlFyDxTYC/view) | [Trained Model 2 leads input](https://drive.google.com/file/d/1jExuEZxfo7sy_R6EPcFLbEu3FG7KYOe7/view) | [Example ECGs from the PTB dataset](https://drive.google.com/file/d/11yZi6Oxtt2A-AHmhJYhlGJ2zFJVFm2uM/view)
+## [Paper](https://doi.org/10.1038/s43856-025-00814-w) | [GitHub](https://github.com/simulamet-host/ecg_1_to_8) | [Trained Model 1 lead input](https://drive.google.com/file/d/1wdUp-Rs2TIjKDw1ih5NaTNUtlFyDxTYC/view) | [Trained Model 2 leads input](https://drive.google.com/file/d/1jExuEZxfo7sy_R6EPcFLbEu3FG7KYOe7/view) | [Example ECGs from the PTB dataset](https://drive.google.com/file/d/11yZi6Oxtt2A-AHmhJYhlGJ2zFJVFm2uM/view)
 ---
 
 Generate ECG leads from a single-lead or dual-lead as input using deep learning algorithms.
@@ -95,6 +95,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 
 ## Citation:
 ```latex
+Presacan, O., Dorobanţiu, A., Isaksen, J.L. et al. Evaluating the feasibility of 12-lead electrocardiogram reconstruction from limited leads using deep learning. Commun Med 5, 139 (2025). https://doi.org/10.1038/s43856-025-00814-w
 ```
 
 ## License
